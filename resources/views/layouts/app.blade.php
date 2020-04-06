@@ -51,7 +51,7 @@
                         @else
                             <li class="nav-item dropdown bg-primary text-white">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle bg-primary text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <img src="{{Storage::url(Auth::user()->avatar)}}" width='50px' height='50px'>
+                                    <img src="{{Storage::url(Auth::user()->photo)}}" width='50px' height='50px'>
 
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>

@@ -11,10 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+//переадресация на стр регистрации
+Route::get('/', function () {
+    return redirect('/register');
+});
+//Сообщение об успешной регистрации
+Route::get('/alert', function () {
+    return view('alert');
+});

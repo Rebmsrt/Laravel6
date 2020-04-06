@@ -8,6 +8,8 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -53,7 +55,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
             'roles' => ['required', 'string', 'max:255'],
-            'avatar' => ['required', 'image'],
+            'photo' => ['required', 'image'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -67,14 +69,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $path = $data['avatar']->store('public/avatars');
+        $path = $data['photo']->store('public/photos');
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'surname' => $data['surname'],
-            'avatar' => $data['avatar']->store('public/avatars'),
+            'photo' => $data['photo']->store('public/photos'),
             'roles' => $data['roles'],
             'password' => Hash::make($data['password']),
         ]);
     }
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
+    protected function redirectTo()
+    {
+        return '/alert';
+    }
+
 }

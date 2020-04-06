@@ -92,10 +92,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="avatar" class="col-md-4 col-form-label text-md-right">{{ __('Avatar') }}</label>
+                            <label for="photo" class="col-md-4 col-form-label text-md-right">{{ __('Фотография') }}</label>
 
                             <div class="col-md-6">
-                                <input id="avatar" type="file" class="form-control border-0" name="avatar" value="{{ old('avatar') }}" required autocomplete="avatar" autofocus>
+                                <input id="photo" type="file" class="form-control border-0" name="photo" value="{{ old('photo') }}" required autocomplete="photo" autofocus>
                                 <div class="col-md-12 text-muted">Изоображение форматата .jpg, .jpeg, .png,<br>Размером не более 5мб.</div>
                             </div>
                         </div>

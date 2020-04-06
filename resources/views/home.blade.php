@@ -15,7 +15,6 @@
                     @endif
 
                     {{Auth::user()->name}}, Добро пожаловать ! <br>
-                    Вы вошли как {{Auth::user()->roles}}
                 </div>
             </div>
         </div>
