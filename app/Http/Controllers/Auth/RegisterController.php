@@ -92,5 +92,4 @@ class RegisterController extends Controller
     {
         return '/alert';
     }
-
 }

@@ -44,13 +44,16 @@
 
                             <div class="col-md-6">
                                 <select id="roles" type="text" class="form-control @error('roles') is-invalid @enderror" name="roles" value="{{ old('roles') }}" required autocomplete="roles" autofocus>
-                                    <option value="Менеджер">Менеджер</option>
-                                    <option value="Ведущий">Ведущий</option>
-                                    <option value="Ди-Джей">Ди-Джей</option>
-                                    <option value="Фоторгаф">Фоторгаф</option>
-                                    <option value="Видеооператор">Видеооператор</option>
-                                    <option value="Оформитель">Оформитель</option>
-                                    <option value="Аниматор">Аниматор</option>
+                                   <?php
+                                   $role = DB::table('role')->get();
+                                   foreach ($role as $rol) {
+                                       ?>
+                                    <option>
+                                    <?php
+                                       echo $rol ->roles;
+                                   }
+                                   ?>
+                                    </option>
                                 </select>
                             </div>
                         </div>

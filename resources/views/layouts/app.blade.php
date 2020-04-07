@@ -18,8 +18,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/mein.css') }}" rel="stylesheet">
 </head>
 <body>
+<div id="qwerty">
+    24141
+</div>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-lg">
             <div class="container ">
@@ -73,7 +77,6 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             @yield('content')
         </main>

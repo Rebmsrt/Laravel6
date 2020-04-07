@@ -15,6 +15,13 @@
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+//Admin
+Route::get('/admin', 'AdminController@index')->name('admin')->middleware('auth');
+Route::get('/admin', function () {
+    if (Auth::user()->admin == 1)
+    { return view('auth.admin');;}
+    else { return redirect('/home'); }
+});
 //переадресация на стр регистрации
 Route::get('/', function () {
     return redirect('/register');
