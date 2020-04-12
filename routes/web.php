@@ -30,3 +30,11 @@ Route::get('/', function () {
 Route::get('/alert', function () {
     return view('alert');
 });
+
+Route::get('/razdel', 'RazdelController@index')->middleware('auth');
+
+Route::post('{user}/razdels', 'RazdelController@store')->middleware('auth');
+
+Route::delete('razdels/{razdel}', 'RazdelController@destroy')->middleware('auth');
+
+Route::get('razdels/{razdel}', 'RazdelController@edit')->middleware('auth');

@@ -13,11 +13,18 @@ class CreateRazdelTable extends Migration
      */
     public function up()
     {
-        Schema::create('razdel', function (Blueprint $table) {
+        Schema::create('razdels', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('sec_name');
-            $table->string('sec_user')->nullable();
+            $table->string('title');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+            $table->boolean('is_public')->default(0);
+
+            $table
+                ->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

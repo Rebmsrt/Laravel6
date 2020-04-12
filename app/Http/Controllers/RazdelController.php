@@ -2,21 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Razdel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class RazdelController extends Controller
 {
-    protected function create(array $data)
+
+    public function index()
     {
-        return RazdelController::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'surname' => $data['surname'],
-            'photo' => $data['photo']->store('public/photos'),
-            'roles' => $data['roles'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $data=auth()->user()->razdels;
+        return (view('home', ['data' => $data]));
+
     }
+
+    public function store(Request $request)
+    {
+        auth()->user()->razdels()->create($request->all());
+        return redirect('home');
+
+    }
+
+    public function destroy(Razdel $razdel)
+    {
+        $razdel->delete();
+        return redirect('home');
+    }
+
+    public function edit(Razdel $razdel)
+    {
+        return (view('razdel.edit_razdel', ['data' => $razdel]));
+    }
+
+    public function update(Request $request, Razdel $razdel)
+    {
+        $razdel->update($request->all());
+        return redirect('home');
+    }
+
+    public function uploadPhoto(Razdel $razdel, Request $request)
+    {
+        $filename = uniqid() . '.' . $file->extension();
+        $razdel
+            ->create(
+                array_merge(
+                    [
+                        'path' => url('/public/storage/' . $filename),
+                        'album_id' =>$album->id,
+                        'owner_id' =>auth()->user()->id,
+                    ],
+                    $request->all()
+                )
+            );
+        return redirect($album->id.'/photo');
+    }
+
+
+
+
 }
+
